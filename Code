@@ -1,0 +1,114 @@
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings('ignore')
+condom_data = pd.read_csv("nyc_condom_availablity.csv")
+condom_data.head()
+condom_data.tail()
+condom_data.shape
+condom_data.columns
+condom_data.info()
+condom_data.describe()
+condom_data.isnull().sum()
+condom_data = condom_data.drop(['BuildingNumber', 'Address 2', 'Phone',
+'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+'Friday', 'Saturday', 'Sunday', 'Facility Type',
+'Website'], axis = 1)
+condom_data.head()
+condom_data.isnull().sum()
+condom_data.dropna(inplace = True)
+condom_data.shape
+condom_data['PartnerType'].unique()
+condom_data['PartnerType'].value_counts()
+plt.figure(figsize=(15,6))
+sns.countplot('PartnerType', data = condom_data, palette='hls')
+plt.xticks(rotation = 90)
+plt.show()
+condom_data['PartnerTypeDetailed'].unique()
+condom_data['PartnerTypeDetailed'].value_counts()
+plt.figure(figsize=(15,6))
+sns.countplot(condom_data['PartnerTypeDetailed'],
+data = condom_data, palette='hls')
+plt.xticks(rotation = 90)
+plt.show()
+condom_data['Condoms (Male)'].unique()
+condom_data['Condoms (Male)'].value_counts()
+plt.figure(figsize=(15,6))
+sns.countplot('Condoms (Male)', data = condom_data, palette='hls')
+plt.xticks(rotation = 90)
+plt.show()
+colors = sns.color_palette('bright')
+plt.pie(condom_data['Condoms (Male)'].value_counts(), colors = colors,
+autopct = '%0.0f%%', shadow = 'True', startangle = 90)
+plt.show()
+condom_data['FC2 (Female/Insertive Condoms)'].unique()
+condom_data['FC2 (Female/Insertive Condoms)'].value_counts()
+plt.figure(figsize=(15,6))
+sns.countplot('FC2 (Female/Insertive Condoms)', data = condom_data, palette='hls')
+plt.xticks(rotation = 90)
+plt.show()
+colors = sns.color_palette('bright')
+plt.pie(condom_data['FC2 (Female/Insertive Condoms)'].value_counts(), colors = colors,
+autopct = '%0.0f%%', shadow = 'True', startangle = 90)
+plt.show()
+condom_data['Community Board'].unique()
+condom_data['Community Board'].value_counts()
+plt.figure(figsize=(15,6))
+sns.countplot('Community Board', data = condom_data, palette='hls')
+plt.xticks(rotation = 90)
+plt.show()
+condom_data['Council District'].unique()
+condom_data['Council District'].value_counts()
+plt.figure(figsize=(15,6))
+sns.countplot('Council District', data = condom_data, palette='hls')
+plt.xticks(rotation = 90)
+plt.show()
+from sklearn import preprocessing
+label_encoder = preprocessing.LabelEncoder()
+condom_data['PartnerType']= label_encoder.fit_transform(condom_data['PartnerType'])
+condom_data['PartnerTypeDetailed']= label_encoder.fit_transform(condom_data['PartnerType
+condom_data['Condoms (Male)']= label_encoder.fit_transform(condom_data['Condoms (Male)']
+condom_data['FC2 (Female/Insertive Condoms)']= label_encoder.fit_transform(condom_data[
+condom_data.head()
+plt.figure(figsize=(15,6))
+sns.countplot(x = 'Condoms (Male)', hue = 'PartnerType', data = condom_data,
+palette='hls')
+plt.xticks(rotation = 90)
+plt.show()
+plt.figure(figsize=(15,6))
+sns.countplot(x = 'FC2 (Female/Insertive Condoms)', hue = 'PartnerType', data = condom_d
+palette='hls')
+plt.xticks(rotation = 90)
+plt.show()
+plt.figure(figsize=(15,6))
+sns.countplot(hue = 'Condoms (Male)', x = 'PartnerTypeDetailed', data = condom_data,
+palette='hls')
+plt.xticks(rotation = 90)
+plt.show()
+plt.figure(figsize=(15,6))
+sns.countplot(hue = 'FC2 (Female/Insertive Condoms)', x = 'PartnerTypeDetailed', data =
+palette='hls')
+plt.xticks(rotation = 90)
+plt.show()
+plt.figure(figsize=(15,6))
+sns.countplot(hue = 'Condoms (Male)', x = 'Community Board', data = condom_data,
+palette='hls')
+plt.xticks(rotation = 90)
+plt.show()
+plt.figure(figsize=(15,6))
+sns.countplot(hue = 'FC2 (Female/Insertive Condoms)', x = 'Community Board', data = cond
+palette='hls')
+plt.xticks(rotation = 90)
+plt.show()
+plt.figure(figsize=(15,6))
+sns.countplot(hue = 'Condoms (Male)', x = 'Council District', data = condom_data,
+palette='hls')
+plt.xticks(rotation = 90)
+plt.show()
+plt.figure(figsize=(15,6))
+sns.countplot(hue = 'FC2 (Female/Insertive Condoms)', x = 'Council District', data = con
+palette='hls')
+plt.xticks(rotation = 90)
+plt.show()
